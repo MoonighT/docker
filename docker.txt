@@ -1,0 +1,26 @@
+1. Keep common instructions at the top of the Dockerfile to utilize the cache.
+	FROM ubuntu
+	MAINTAINER Han Yu <moonlight612311521@gmail.com>
+
+	RUN echo "deb http://archive.ubuntu.com/ubuntu precise main universe" > /etc/apt/sources.list
+	RUN apt-get update
+	RUN apt-get upgrade -y
+
+2. Always pass -t to tag the resulting image.
+	docker build -t="xxx/xxx" .
+
+3. Never map the public port in a Dockerfile.
+	# private and public mapping
+	EXPOSE 80:8080
+
+	# private only
+	EXPOSE 80
+
+4. Always use the array syntax when using CMD and ENTRYPOINT.
+	CMD ["/bin/echo"]
+
+5. ENTRYPOINT and CMD are better together.
+	ENTRYPOINT ["/usr/bin/rethinkdb"] # docker run will start at this path
+
+	CMD ["--help"] # default command
+	
